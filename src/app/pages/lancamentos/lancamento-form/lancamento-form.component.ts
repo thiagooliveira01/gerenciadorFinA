@@ -8,6 +8,8 @@ import { LancamentoService } from "../shared/lancamento.service";
 import { switchMap } from "rxjs/operators";
 
 import toastr from "toastr";
+import { Categoria } from '../../categorias/shared/categoria.model';
+import { CategoriaService } from '../../categorias/shared/categoria.service';
 
 @Component({
   selector: 'app-lancamento-form',
@@ -22,17 +24,42 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
   lancamento: Lancamento = new Lancamento();
+  categorias: Array<Categoria>;
+
+  imaskConfig ={
+    mask: Number,
+    scale: 2,
+    thousandsSeparator: '',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    radix: ','
+  }
+  ptBR = {
+    firstDayOfWeek: 0,
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    dayNamesMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+    monthNames: [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+      'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    today: 'Hoje',
+    clear: 'Limpar'
+  }
 
   constructor(
     private lancamentoService: LancamentoService, 
     private route: ActivatedRoute, 
     private router: Router, 
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService) { }
 
   ngOnInit() {
     this.setCurrentAction();
     this.buildLancamento();
     this.loadLancamento();
+    this.loadCategorias();
   }
 
   ngAfterContentChecked(){
@@ -48,6 +75,17 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
       this.updateLancamento();
   }
 
+  get tipoOptions(): Array<any>{
+    return Object.entries(Lancamento.types).map(
+      ([value, text]) =>{
+        return{
+          text: text,
+          value: value
+        }
+      }
+    )
+  }
+
   //metodos privados
   private setCurrentAction(){
     if(this.route.snapshot.url[0].path == "new")
@@ -61,10 +99,10 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
       id: [null],
       nome:[null, [Validators.required, Validators.minLength(2)]],
       descricao:[null],
-      tipo:[null, [Validators.required]],
+      tipo:["despesa", [Validators.required]],
       valor:[null, [Validators.required]],
       data:[null, [Validators.required]],
-      pago:[null, [Validators.required]],
+      pago:[true, [Validators.required]],
       categoriaId:[null, [Validators.required]]
     });
   }
@@ -130,4 +168,9 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
       this.serverErrorMessages = ["Falha na comunicação com o servidor. Tente mais tarde."];
   }
 
+  private loadCategorias(){
+    this.categoriaService.getall().subscribe(
+      categorias => this.categorias = categorias
+    )
+  }
 }

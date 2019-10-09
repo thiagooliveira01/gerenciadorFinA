@@ -6,12 +6,17 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { LancamentoFormComponent } from './lancamento-form/lancamento-form.component';
 
+import { CalendarModule } from "primeng/calendar";
+import { IMaskModule } from "angular-imask";
+
 
 @NgModule({
   imports: [
     CommonModule,
     LancamentosRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule,
+    IMaskModule
   ], 
   declarations: [ListaLancamentoComponent, LancamentoFormComponent]
 })
