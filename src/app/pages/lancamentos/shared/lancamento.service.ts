@@ -56,13 +56,20 @@ export class LancamentoService {
 
 //Medotodos privados
   private jsonDataToLancamentos(jsonData: any[]):Lancamento[]{
+
+    //console.log(jsonData[0] as Lancamento);
+    //console.log( Object.assign(new Lancamento(), jsonData[0]));
+
     const lancamentos: Lancamento[] = [];
-    jsonData.forEach(element=>lancamentos.push(element as Lancamento));
+    jsonData.forEach(element=>{
+      const lancamento = Object.assign(new Lancamento, element);
+      lancamentos.push(lancamento);
+    });
     return lancamentos;
   }
 
   private jsonDataToLancamento (jsonData: any): Lancamento{
-    return jsonData as Lancamento
+    return Object.assign(new Lancamento, jsonData)
   }
 
   private handleError(error:any): Observable<any>{

@@ -18,7 +18,7 @@ export class Lancamento{
         receita: 'Receita'
     };
 
-    get paidText(): string{
+    get pagoText(): string{
         return this.pago ? 'Pago' : 'Pendente';
     }
 }
