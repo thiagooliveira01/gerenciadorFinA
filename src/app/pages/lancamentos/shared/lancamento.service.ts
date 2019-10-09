@@ -5,6 +5,7 @@ import { Observable, throwError } from "rxjs";
 import { map, catchError, flatMap } from "rxjs/operators";
 
 import { Lancamento } from "./lancamento.model";
+import { CategoriaService } from '../../categorias/shared/categoria.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class LancamentoService {
 
   private apiPath : string = "api/lancamentos";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private categoriaService: CategoriaService) { }
 
   getall(): Observable<Lancamento[]>{
     return this.http.get(this.apiPath).pipe(
@@ -31,18 +32,44 @@ export class LancamentoService {
   }
 
   create(lancamento: Lancamento): Observable<Lancamento> {
-    return this.http.post(this.apiPath, lancamento).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToLancamento)
+
+    //@@remover quando ativar API
+    return this.categoriaService.getById(lancamento.categoriaId).pipe(
+      flatMap(categoria => {
+        lancamento.categoria = categoria;
+        return this.http.post(this.apiPath, lancamento).pipe(
+          catchError(this.handleError),
+          map(this.jsonDataToLancamento)
+        )
+      })
     )
+
+    //@@Voltar
+    //return this.http.post(this.apiPath, lancamento).pipe(
+    //  catchError(this.handleError),
+    //  map(this.jsonDataToLancamento)
+    //)
   }
 
   update(lancamento: Lancamento): Observable<Lancamento>{
     const url = `${this.apiPath}/${lancamento.id}`;
-    return this.http.put(url, lancamento).pipe(
-      catchError(this.handleError),
-      map(()=>lancamento)
+
+    //@@remover quando ativar API
+    return this.categoriaService.getById(lancamento.categoriaId).pipe(
+      flatMap(categoria =>{
+        lancamento.categoria = categoria;
+        return this.http.put(url, lancamento).pipe(
+            catchError(this.handleError),
+            map(()=>lancamento)
+          )
+      })
     )
+
+    //@@Voltar
+    //return this.http.put(url, lancamento).pipe(
+    //  catchError(this.handleError),
+    //  map(()=>lancamento)
+    //)
   }
 
   delete(id: number): Observable<any>{
