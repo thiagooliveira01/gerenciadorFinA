@@ -58,14 +58,14 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
 
     const lancamentos: Lancamento[] = [];
     jsonData.forEach(element=>{
-      const lancamento = Object.assign(new Lancamento, element);
+      const lancamento = Lancamento.fromJson(element);
       lancamentos.push(lancamento);
     });
     return lancamentos;
   }
 
   protected jsonDataToResource (jsonData: any): Lancamento{
-    return Object.assign(new Lancamento, jsonData)
+    return Lancamento.fromJson(jsonData);
   }
   
 }

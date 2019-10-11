@@ -132,7 +132,7 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
   }
 
   private createLancamento(){
-    const lancamento : Lancamento = Object.assign(new Lancamento(), this.lancamentoForm.value);
+    const lancamento : Lancamento = Lancamento.fromJson(this.lancamentoForm.value);
 
     this.lancamentoService.create(lancamento).subscribe(
       lancamento => this.actionsForSuccess(lancamento),
@@ -141,7 +141,7 @@ export class LancamentoFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateLancamento(){
-    const lancamento : Lancamento = Object.assign(new Lancamento(), this.lancamentoForm.value);
+    const lancamento : Lancamento = Lancamento.fromJson(this.lancamentoForm.value);
     this.lancamentoService.update(lancamento).subscribe(
       lancamento => this.actionsForSuccess(lancamento),
       error => this.actionsForError(error)
