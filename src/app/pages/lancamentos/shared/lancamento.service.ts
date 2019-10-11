@@ -1,34 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
 
-import { Observable, throwError } from "rxjs";
-import { map, catchError, flatMap } from "rxjs/operators";
-
+import { BaseResouceService } from 'src/app/shared/servicos/base-resource.service';
 import { Lancamento } from "./lancamento.model";
 import { CategoriaService } from '../../categorias/shared/categoria.service';
+
+import { Observable } from "rxjs";
+import { flatMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LancamentoService {
+export class LancamentoService extends BaseResouceService<Lancamento>{
 
-  private apiPath : string = "api/lancamentos";
-
-  constructor(private http: HttpClient, private categoriaService: CategoriaService) { }
-
-  getall(): Observable<Lancamento[]>{
-    return this.http.get(this.apiPath).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToLancamentos)
-    )
-  }
-
-  getById(id:number):Observable<Lancamento>{
-    const url = `${this.apiPath}/${id}`;
-    return this.http.get(url).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToLancamento)
-    )
+  constructor(protected injector: Injector, private categoriaService: CategoriaService) {
+    super('api/lancamentos', injector)
   }
 
   create(lancamento: Lancamento): Observable<Lancamento> {
@@ -37,10 +22,7 @@ export class LancamentoService {
     return this.categoriaService.getById(lancamento.categoriaId).pipe(
       flatMap(categoria => {
         lancamento.categoria = categoria;
-        return this.http.post(this.apiPath, lancamento).pipe(
-          catchError(this.handleError),
-          map(this.jsonDataToLancamento)
-        )
+        return super.create(lancamento);
       })
     )
 
@@ -52,16 +34,12 @@ export class LancamentoService {
   }
 
   update(lancamento: Lancamento): Observable<Lancamento>{
-    const url = `${this.apiPath}/${lancamento.id}`;
 
     //@@remover quando ativar API
     return this.categoriaService.getById(lancamento.categoriaId).pipe(
       flatMap(categoria =>{
-        lancamento.categoria = categoria;
-        return this.http.put(url, lancamento).pipe(
-            catchError(this.handleError),
-            map(()=>lancamento)
-          )
+        lancamento.categoria = categoria;        
+        return super.update(lancamento);
       })
     )
 
@@ -72,17 +50,8 @@ export class LancamentoService {
     //)
   }
 
-  delete(id: number): Observable<any>{
-    const url = `${this.apiPath}/${id}`;
-
-    return this.http.delete(url).pipe(
-      catchError(this.handleError),
-      map(() => null)
-    );
-  }
-
 //Medotodos privados
-  private jsonDataToLancamentos(jsonData: any[]):Lancamento[]{
+  protected jsonDataToResources(jsonData: any[]):Lancamento[]{
 
     //console.log(jsonData[0] as Lancamento);
     //console.log( Object.assign(new Lancamento(), jsonData[0]));
@@ -95,14 +64,8 @@ export class LancamentoService {
     return lancamentos;
   }
 
-  private jsonDataToLancamento (jsonData: any): Lancamento{
+  protected jsonDataToResource (jsonData: any): Lancamento{
     return Object.assign(new Lancamento, jsonData)
   }
-
-  private handleError(error:any): Observable<any>{
-    console.log("Erro na requisição ->", error);
-    return throwError(error);
-  }
-
   
 }
