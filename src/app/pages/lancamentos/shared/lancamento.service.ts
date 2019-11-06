@@ -13,7 +13,7 @@ import { flatMap } from "rxjs/operators";
 export class LancamentoService extends BaseResouceService<Lancamento>{
 
   constructor(protected injector: Injector, private categoriaService: CategoriaService) {
-    super('api/lancamentos', injector)
+    super('api/lancamentos', injector, Lancamento.fromJson)
   }
 
   create(lancamento: Lancamento): Observable<Lancamento> {
@@ -51,6 +51,7 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
   }
 
 //Medotodos privados
+/*
   protected jsonDataToResources(jsonData: any[]):Lancamento[]{
 
     //console.log(jsonData[0] as Lancamento);
@@ -67,5 +68,8 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
   protected jsonDataToResource (jsonData: any): Lancamento{
     return Lancamento.fromJson(jsonData);
   }
-  
+
+  Removido apos refactory Lancamento.fromJson
+
+  */
 }
