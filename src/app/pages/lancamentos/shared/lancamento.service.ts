@@ -5,7 +5,7 @@ import { Lancamento } from "./lancamento.model";
 import { CategoriaService } from '../../categorias/shared/categoria.service';
 
 import { Observable } from "rxjs";
-import { flatMap } from "rxjs/operators";
+import { flatMap, catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -17,36 +17,27 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
   }
 
   create(lancamento: Lancamento): Observable<Lancamento> {
+    return this.setCategoriaEnviaServidor(lancamento, super.create.bind(this));
+  }
 
+  update(lancamento: Lancamento): Observable<Lancamento>{
+    return this.setCategoriaEnviaServidor(lancamento, super.update.bind(this));
+  }
+
+  private setCategoriaEnviaServidor(lancamento: Lancamento, sendFn: any): Observable<Lancamento>{
     //@@remover quando ativar API
     return this.categoriaService.getById(lancamento.categoriaId).pipe(
       flatMap(categoria => {
         lancamento.categoria = categoria;
-        return super.create(lancamento);
-      })
-    )
+        return sendFn(lancamento);
+      }),
+      catchError(this.handleError)
+    );
 
     //@@Voltar
     //return this.http.post(this.apiPath, lancamento).pipe(
     //  catchError(this.handleError),
     //  map(this.jsonDataToLancamento)
-    //)
-  }
-
-  update(lancamento: Lancamento): Observable<Lancamento>{
-
-    //@@remover quando ativar API
-    return this.categoriaService.getById(lancamento.categoriaId).pipe(
-      flatMap(categoria =>{
-        lancamento.categoria = categoria;        
-        return super.update(lancamento);
-      })
-    )
-
-    //@@Voltar
-    //return this.http.put(url, lancamento).pipe(
-    //  catchError(this.handleError),
-    //  map(()=>lancamento)
     //)
   }
 
