@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<form [formGroup] = "lancamentoForm" (submit)="submitForm()">
+<form [formGroup] = "resourceForm" (submit)="submitForm()">
     <div class="card">
         <div class="card-header">
             Informações sobre a lancamento
@@ -34,8 +34,8 @@
                         <option *ngFor="let option of tipoOptions" [value]="option.value">{{option.text}}</option>
                     </select>
   
-                    <div class="text-danger" *ngIf="lancamentoForm.get('tipo').invalid && lancamentoForm.get('tipo').touched">
-                        <div *ngIf="lancamentoForm.get('nome').errors.required">Dado obrigatório</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('tipo').invalid && resourceForm.get('tipo').touched">
+                        <div *ngIf="resourceForm.get('nome').errors.required">Dado obrigatório</div>
                     </div>
                 </div>
                 <!--nome-->
@@ -43,9 +43,9 @@
                     <label for="nome">Lançamento</label>
                     <input type="text" class="form-control" id="nome" formControlName="nome">
     
-                    <div class="text-danger" *ngIf="lancamentoForm.get('nome').invalid && lancamentoForm.get('nome').touched">
-                        <div *ngIf="lancamentoForm.get('nome').errors.required">Dado obrigatório</div>
-                        <div *ngIf="lancamentoForm.get('nome').errors.minlenght">Deve ter no mínimo 2 caracteres</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">
+                        <div *ngIf="resourceForm.get('nome').errors.required">Dado obrigatório</div>
+                        <div *ngIf="resourceForm.get('nome').errors.minlenght">Deve ter no mínimo 2 caracteres</div>
                     </div>
                 </div>
 
@@ -59,8 +59,8 @@
                         <input [imask]="imaskConfig" type="text" class="form-control text-right" id="valor" formControlName="valor">
                     </div>
                     
-                    <div class="text-danger" *ngIf="lancamentoForm.get('valor').invalid && lancamentoForm.get('valor').touched">
-                        <div *ngIf="lancamentoForm.get('valor').errors.required">Dado obrigatório</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('valor').invalid && resourceForm.get('valor').touched">
+                        <div *ngIf="resourceForm.get('valor').errors.required">Dado obrigatório</div>
                     </div>
                 </div>
 
@@ -78,8 +78,8 @@
                       
                     </p-calendar>
 
-                    <div class="text-danger" *ngIf="lancamentoForm.get('data').invalid && lancamentoForm.get('data').touched">
-                        <div *ngIf="lancamentoForm.get('data').errors.required">Dado obrigatório</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('data').invalid && resourceForm.get('data').touched">
+                        <div *ngIf="resourceForm.get('data').errors.required">Dado obrigatório</div>
                     </div>
                 </div>
     
@@ -91,20 +91,20 @@
                     <label for="pago">Pago</label>
                     <div class="btn-group">
                         <label 
-                          [class.active]="lancamentoForm.get('pago').value == true" 
+                          [class.active]="resourceForm.get('pago').value == true" 
                           class="btn btn-outline-info"
-                          (click)="lancamentoForm.get('pago').setValue(true)">
+                          (click)="resourceForm.get('pago').setValue(true)">
                           Pago
                         </label>
                         <label 
-                          [class.active]="lancamentoForm.get('pago').value == false" 
+                          [class.active]="resourceForm.get('pago').value == false" 
                           class="btn btn-outline-info"
-                          (click)="lancamentoForm.get('pago').setValue(false)">
+                          (click)="resourceForm.get('pago').setValue(false)">
                         Pendente
                         </label>
                     </div>
-                    <div class="text-danger" *ngIf="lancamentoForm.get('pago').invalid && lancamentoForm.get('pago').touched">
-                        <div *ngIf="lancamentoForm.get('pago').errors.required">Dado obrigatório</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('pago').invalid && resourceForm.get('pago').touched">
+                        <div *ngIf="resourceForm.get('pago').errors.required">Dado obrigatório</div>
                     </div>
                 </div>
 
@@ -116,8 +116,8 @@
                         <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</option>
                     </select>
   
-                    <div class="text-danger" *ngIf="lancamentoForm.get('categoriaId').invalid && lancamentoForm.get('categoriaId').touched">
-                        <div *ngIf="lancamentoForm.get('nome').errors.required">Dado obrigatório</div>
+                    <div class="text-danger" *ngIf="resourceForm.get('categoriaId').invalid && resourceForm.get('categoriaId').touched">
+                        <div *ngIf="resourceForm.get('nome').errors.required">Dado obrigatório</div>
                     </div>
                 </div>
 
@@ -137,7 +137,7 @@
         </ul>
     </div>
 
-    <button [disabled]="submittingForm || lancamentoForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
         Salvar
     </button>
 </form>
