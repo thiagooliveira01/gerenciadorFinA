@@ -5,10 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BreadCrumbComponent } from './componentes/bread-crumb/bread-crumb.component';
 import { RouterModule } from '@angular/router';
 import { PageHeaderComponent } from './componentes/page-header/page-header.component';
+import { FormFieldErrorComponent } from './componentes/form-field-error/form-field-error.component';
 
 
 @NgModule({
-  declarations: [BreadCrumbComponent, PageHeaderComponent],
+  declarations: [BreadCrumbComponent, PageHeaderComponent, FormFieldErrorComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -19,7 +20,8 @@ import { PageHeaderComponent } from './componentes/page-header/page-header.compo
     ReactiveFormsModule,
     BreadCrumbComponent,
     RouterModule,
-    PageHeaderComponent
+    PageHeaderComponent,
+    FormFieldErrorComponent
   ]
 })
 export class SharedModule { }
