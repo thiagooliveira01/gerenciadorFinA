@@ -5,13 +5,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ConsultaRoutingModule } from './consulta-routing.module';
 import { ConsultaComponent } from './consulta/consulta.component';
 
+import { ChartModule } from "primeng/chart";
+
 
 @NgModule({
   declarations: [ConsultaComponent],
   imports: [
     CommonModule,
     ConsultaRoutingModule,
-    SharedModule
+    SharedModule,
+    ChartModule
   ]
 })
 export class ConsultaModule { }

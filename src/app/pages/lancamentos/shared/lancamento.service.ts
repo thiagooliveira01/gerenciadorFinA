@@ -5,7 +5,9 @@ import { Lancamento } from "./lancamento.model";
 import { CategoriaService } from '../../categorias/shared/categoria.service';
 
 import { Observable } from "rxjs";
-import { flatMap, catchError } from "rxjs/operators";
+import { flatMap, catchError, map } from "rxjs/operators";
+
+import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,12 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
     return this.setCategoriaEnviaServidor(lancamento, super.update.bind(this));
   }
 
+  getByMonthAndYear(mes:number, ano: number): Observable<Lancamento[]>{
+    return this.getall().pipe(
+      map(lancamentos => this.filtrarMesEAno(lancamentos, mes, ano))
+    )
+  }
+
   private setCategoriaEnviaServidor(lancamento: Lancamento, sendFn: any): Observable<Lancamento>{
     //@@remover quando ativar API
     return this.categoriaService.getById(lancamento.categoriaId).pipe(
@@ -39,6 +47,16 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
     //  catchError(this.handleError),
     //  map(this.jsonDataToLancamento)
     //)
+  }
+
+  private filtrarMesEAno(lancamentos: Lancamento[], mes: number, ano: number){
+    return lancamentos.filter(lancamento => {
+      const lancamentoData = moment(lancamento.data, "DD/MM/YYYY");
+      const mesIgual = lancamentoData.month() +1 == mes;
+      const anoIgual = lancamentoData.year() == mes;
+
+      if(mesIgual && anoIgual) return lancamento;
+    })
   }
 
 //Medotodos privados
