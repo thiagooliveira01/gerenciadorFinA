@@ -4,7 +4,7 @@
                 {{tituloPagina}}
             </h1>
         </div>
-        <div class="col-md-3 text-right">
+        <div *ngIf="exibirBotao" class="col-md-3 text-right">
             <a [routerLink]="linkBotao" class="btn" [ngClass]="classeBotao">
                 {{textoBotao}}
             </a>
