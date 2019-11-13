@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule} from "@angular/common/http";
+import { RouterModule } from '@angular/router';
 
 //tirar quando for conectar com api
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDatabase } from "../in-memory-database";
+import { NavbarComponent } from './componentes/navbar/navbar.component';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [NavbarComponent],
   imports: [
+    RouterModule,
     CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -21,7 +25,8 @@ import { InMemoryDatabase } from "../in-memory-database";
     //modulos compartilhados
     BrowserAnimationsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    NavbarComponent
   ]
 })
 export class CoreModule { }
