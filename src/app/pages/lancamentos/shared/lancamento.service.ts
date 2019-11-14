@@ -53,7 +53,7 @@ export class LancamentoService extends BaseResouceService<Lancamento>{
     return lancamentos.filter(lancamento => {
       const lancamentoData = moment(lancamento.data, "DD/MM/YYYY");
       const mesIgual = lancamentoData.month() +1 == mes;
-      const anoIgual = lancamentoData.year() == mes;
+      const anoIgual = lancamentoData.year() == ano;
 
       if(mesIgual && anoIgual) return lancamento;
     })

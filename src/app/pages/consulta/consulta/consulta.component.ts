@@ -8,7 +8,6 @@ import { LancamentoService } from "../../lancamentos/shared/lancamento.service";
 
 import currencyFormatter from "currency-formatter";
 
-
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
@@ -36,8 +35,11 @@ export class ConsultaComponent implements OnInit {
   categorias: Categoria[] = [];
   lancamentos: Lancamento[] = [];
 
-  @ViewChild('mes') mes: ElementRef = null;
-  @ViewChild('ano') ano: ElementRef = null;
+  corReceita: ['#00FA9A','#00FFFF', '#006400', '#00FF00', '#B0E0E6', '#F0FFF0', '#E6E6FA','#4B0082','#7B68EE','#8B008B','#008080'];
+  corDespesa: ['#FF0000','#DC143C', '#800000', '#D2691E', '#F08080', '#DAA520', '#8B4513','#F4A460','#FFA500','#FFFF00','#FF69B4'];
+
+  @ViewChild('mes', {static: false}) mes: ElementRef = null;
+  @ViewChild('ano', {static: false}) ano: ElementRef = null;
 
   constructor(private lancamentoService: LancamentoService, private categoriaService: CategoriaService) { }
 
@@ -53,9 +55,7 @@ export class ConsultaComponent implements OnInit {
     if(!mes || !ano)
       alert('Selecione o Mês e o Ano para gerar os relatórios')
     else
-      this.lancamentoService.getByMonthAndYear(mes, ano).subscribe(
-        this.setValues.bind(this)
-      )
+      this.lancamentoService.getByMonthAndYear(mes, ano).subscribe( this.setValues.bind(this) );
   }
 
   private setValues(lancamentos: Lancamento[]){
@@ -81,18 +81,27 @@ export class ConsultaComponent implements OnInit {
   }
 
   private setDadosGrafico() {
+    this.graficoReceita = this.getDadosGrafico('receita', 'Grafico de Receitas', '#9CCC65');
+    this.graficoDespesa = this.getDadosGrafico('despesa', 'Grafico de Despesas', '#e03131');
+
+    console.log(this.graficoReceita);
+    console.log(this.graficoDespesa);
+  }
+
+  private getDadosGrafico(tipoLancamento: string, titulo: string, cor: string){
+    
     const dadosGrafico = [];
 
     this.categorias.forEach(categoria => {
       //filtrar lancamento por categoria e type
       const lancamentosFiltrados = this.lancamentos.filter(
-        lancamento => (lancamento.categoria == categoria.id) && (lancamento.tipo == 'receita')
+        lancamento => (lancamento.categoriaId == categoria.id) && (lancamento.tipo == tipoLancamento)
       );
 
       //
       if(lancamentosFiltrados.length > 0){
         const valorTotal = lancamentosFiltrados.reduce(
-          (total, lancamento) => total + currencyFormatter.format(lancamento.valor, {code: 'BRL'}), 0
+          (total, lancamento) => total + currencyFormatter.unformat(lancamento.valor, {code: 'BRL'}), 0
         )
 
         dadosGrafico.push({
@@ -102,11 +111,11 @@ export class ConsultaComponent implements OnInit {
       }
     });
 
-    this.graficoReceita = {
+    return {
       labels: dadosGrafico.map(item => item.categoriaNome),
       datasets: [{
-        label: 'Gráfico de Receitas',
-        backgroundColor: '#9CCC65', 
+        label: titulo,
+        backgroundColor: cor, 
         data: dadosGrafico.map(item => item.valorTotal)
       }]
     }
