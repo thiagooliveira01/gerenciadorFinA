@@ -17,14 +17,6 @@ export class LancamentoFormComponent extends BaseResourceFormComponent<Lancament
 
   categorias: Array<Categoria>;
 
-  imaskConfig ={
-    mask: Number,
-    scale: 2,
-    thousandsSeparator: '',
-    padFractionalZeros: true,
-    normalizeZeros: true,
-    radix: ','
-  }
   ptBR = {
     firstDayOfWeek: 0,
     dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],

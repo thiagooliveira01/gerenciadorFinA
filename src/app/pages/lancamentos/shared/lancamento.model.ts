@@ -1,5 +1,6 @@
 import { Categoria } from '../../categorias/shared/categoria.model';
 import { BaseResourceModel } from 'src/app/shared/models/base-resource.model';
+import currencyFormatter from "currency-formatter";
 
 export class Lancamento extends BaseResourceModel{
     constructor(
@@ -27,5 +28,9 @@ export class Lancamento extends BaseResourceModel{
 
     get pagoText(): string{
         return this.pago == 1 ? 'Pago' : 'Pendente';
+    }
+
+    get valorFormatado(): string{
+        return currencyFormatter.format(this.valor, {code: 'BRL'});
     }
 }

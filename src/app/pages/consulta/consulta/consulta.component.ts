@@ -83,9 +83,6 @@ export class ConsultaComponent implements OnInit {
   private setDadosGrafico() {
     this.graficoReceita = this.getDadosGrafico('receita', 'Grafico de Receitas', '#9CCC65');
     this.graficoDespesa = this.getDadosGrafico('despesa', 'Grafico de Despesas', '#e03131');
-
-    console.log(this.graficoReceita);
-    console.log(this.graficoDespesa);
   }
 
   private getDadosGrafico(tipoLancamento: string, titulo: string, cor: string){

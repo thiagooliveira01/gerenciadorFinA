@@ -14,7 +14,7 @@
         <tr class="bg-primary text-light">
             <th>Lançamento</th>
             <th>Categoria</th>
-            <th class="text-right">Valor R$</th>
+            <th class="text-right">Valor</th>
             <th class="text-center">Ações</th>
         </tr>
     </thead>
@@ -30,7 +30,7 @@
             </td>
             <td class="text-right">
                 <strong  [class.text-success]="lancamento.tipo =='receita'" [class.text-danger]="lancamento.tipo =='despesa'">
-                    {{lancamento.valor}}
+                    {{lancamento.valorFormatado}}
                 </strong>
                 <br>
                 <span class="badge bage-light">{{lancamento.pagoText}}</span>
