@@ -71,7 +71,7 @@ export class LancamentoFormComponent extends BaseResourceFormComponent<Lancament
       tipo:["despesa", [Validators.required]],
       valor:[null, [Validators.required]],
       data:[null, [Validators.required]],
-      pago:[true, [Validators.required]],
+      pago:[1, [Validators.required]],
       categoriaId:[null, [Validators.required]]
     });
   }

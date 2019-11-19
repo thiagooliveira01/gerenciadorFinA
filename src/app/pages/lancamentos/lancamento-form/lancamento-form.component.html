@@ -42,7 +42,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">R$</div>
                         </div>
-                        <input [imask]="imaskConfig" type="text" class="form-control text-right" id="valor" formControlName="valor">
+                        <input type="number" class="form-control text-right" id="valor" formControlName="valor">
                     </div>
                     
                     <app-form-field-error [form-control]="resourceForm.get('valor')"></app-form-field-error>
@@ -75,15 +75,15 @@
                     <label for="pago">Pago</label>
                     <div class="btn-group">
                         <label 
-                          [class.active]="resourceForm.get('pago').value == true" 
+                          [class.active]="resourceForm.get('pago').value == 1" 
                           class="btn btn-outline-info"
-                          (click)="resourceForm.get('pago').setValue(true)">
+                          (click)="resourceForm.get('pago').setValue(1)">
                           Pago
                         </label>
                         <label 
-                          [class.active]="resourceForm.get('pago').value == false" 
+                          [class.active]="resourceForm.get('pago').value == 0" 
                           class="btn btn-outline-info"
-                          (click)="resourceForm.get('pago').setValue(false)">
+                          (click)="resourceForm.get('pago').setValue(0)">
                         Pendente
                         </label>
                     </div>

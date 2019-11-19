@@ -7,9 +7,9 @@ export class Lancamento extends BaseResourceModel{
         public nome?: string,
         public descricao?: string,
         public tipo?: string,
-        public valor?: string,
+        public valor?: number,
         public data?: string,
-        public pago?: boolean,
+        public pago?: number,
         public categoriaId?: number,
         public categoria?: Categoria
     ){
@@ -26,6 +26,6 @@ export class Lancamento extends BaseResourceModel{
     }
 
     get pagoText(): string{
-        return this.pago ? 'Pago' : 'Pendente';
+        return this.pago == 1 ? 'Pago' : 'Pendente';
     }
 }
