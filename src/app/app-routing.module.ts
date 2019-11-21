@@ -1,13 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './core/componentes/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'lancamentos', loadChildren: './pages/lancamentos/lancamentos.module#LancamentosModule' },
-  { path: 'categorias', loadChildren: './pages/categorias/categorias.module#CategoriasModule' },
-  { path: 'consulta', loadChildren: './pages/consulta/consulta.module#ConsultaModule' },
+  { path: 'lancamentos',
+    canActivate: [AuthGuard], 
+    loadChildren: './pages/lancamentos/lancamentos.module#LancamentosModule' },
 
-  { path: '', redirectTo: '/consulta', pathMatch: 'full' }
+  { path: 'categorias', 
+    canActivate: [AuthGuard], 
+    loadChildren: './pages/categorias/categorias.module#CategoriasModule' },
+
+  { path: 'consulta', 
+    canActivate: [AuthGuard], 
+    loadChildren: './pages/consulta/consulta.module#ConsultaModule' },
+  
+  { path: 'login', component: LoginComponent },
+  
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
