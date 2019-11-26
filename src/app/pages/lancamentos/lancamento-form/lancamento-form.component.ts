@@ -76,7 +76,7 @@ export class LancamentoFormComponent extends BaseResourceFormComponent<Lancament
 
 
   protected creationPageTitle(): string {
-    return "Cadastro de Nova Lançamento";
+    return "Cadastro de Novo Lançamento";
   }
 
   protected editionPageTitle(): string {
