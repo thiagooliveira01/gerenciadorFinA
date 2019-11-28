@@ -1,7 +1,7 @@
 <div class="container" style="display: flex;justify-content: center;align-items: center;height: 100vh;">
     <div class="card" style="width: 50%;">
       <div class="card-body">
-        <h5 class="card-title">Gerenciador Financeiro</h5>
+        <h5 class="card-title">Gerenciador Financeiro - Entrar</h5>
         <div class="card-text">
           <form (ngSubmit)="login()" #form="ngForm">
             <div class="form-group">
@@ -13,6 +13,12 @@
               <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Senha" [(ngModel)]="model.password" required />
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="submitted || !form.valid">Entrar</button>
+
+            <div class="form-group">
+                Se você não possui uma conta, 
+                <a routerLink="/cadastro">clique aqui</a>
+            </div>
+            
           </form>
         </div>
       </div>

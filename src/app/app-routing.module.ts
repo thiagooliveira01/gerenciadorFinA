@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './core/componentes/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { CadastroComponent } from './core/componentes/cadastro/cadastro.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'consulta', 
     canActivate: [AuthGuard], 
     loadChildren: './pages/consulta/consulta.module#ConsultaModule' },
+
+  {path: 'cadastro', component: CadastroComponent},
   
   { path: 'login', component: LoginComponent },
   
