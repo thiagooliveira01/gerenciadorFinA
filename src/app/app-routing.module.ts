@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'login',
     loadChildren: './pages/login/login.module#LoginModule' },
   
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '', redirectTo: '/consulta', pathMatch: 'full' },
+  { path: '**', redirectTo: '/consulta' }
 ];
 
 @NgModule({

@@ -38,6 +38,8 @@ export class FormFieldErrorComponent implements OnInit {
       return "Formato de e-mail inválido";
     else if (this.formControl.errors.mismatch)
       return "A confirmação de senha não está combinando";
+    else if (this.formControl.errors.invalidPass)
+     return "A senha deve conter no mínimo um caracter em maiúsculo[A-Z], um caracter em minúsculo[a-z], um número[0-9] e um caractere especial!";
     else if(this.formControl.errors.minlength){
       const tamahoRequerido = this.formControl.errors.minlength.requiredLength;
       return `Deve ter no mínimo ${tamahoRequerido} caracteres`;
