@@ -5,3 +5,11 @@ export interface LoginResponse {
     expires_in: number;
     userName: string;
 }
+
+export class User {
+    public constructor(
+      public Email: string,
+      public Password: string,
+      public ConfirmPassword: string
+    ){}
+  }

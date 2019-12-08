@@ -36,11 +36,10 @@ export class AuthService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Status Erro ${error.status}, ` +
-        `Mensagem de erro: ${error.error.ModelState}`);
+        `Mensagem de erro: ${error.message}`);
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Algo ruím aconteceu. Tente novamente mais tarde.');
+    return throwError( error.error );
   }
  
   // Verify user credentials on server to get token

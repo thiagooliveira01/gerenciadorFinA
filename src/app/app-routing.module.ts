@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './core/componentes/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { CadastroComponent } from './core/componentes/cadastro/cadastro.component';
-
 
 const routes: Routes = [
   { path: 'lancamentos',
@@ -18,9 +15,8 @@ const routes: Routes = [
     canActivate: [AuthGuard], 
     loadChildren: './pages/consulta/consulta.module#ConsultaModule' },
 
-  {path: 'cadastro', component: CadastroComponent},
-  
-  { path: 'login', component: LoginComponent },
+  { path: 'login',
+    loadChildren: './pages/login/login.module#LoginModule' },
   
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }

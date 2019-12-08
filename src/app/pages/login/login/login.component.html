@@ -1,0 +1,31 @@
+<div class="container" style="display: flex;justify-content: center;align-items: center;height: 100vh;">
+    <div class="card" style="width: 50%;">
+      <div class="card-body">
+        <h5 class="card-title">Gerenciador Financeiro - Entrar</h5>
+        <div class="card-text">
+          <form [formGroup]="form" (ngSubmit)="login()">
+            <div class="form-group">
+              <label for="exampleInputEmail1">E-mail</label>
+              <input type="email" class="form-control" id="username" formControlName="username" placeholder="Informe o e-mail"/>
+              <app-form-field-error [form-control]="form.get('username')"></app-form-field-error>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Senha</label>
+              <input type="password" class="form-control" id="password" formControlName="password"  placeholder="Senha" />
+              <app-form-field-error [form-control]="form.get('password')"></app-form-field-error>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="form.invalid || submitted">Entrar</button>
+
+            <div class="card-text">
+                Se você não possui uma conta, 
+                <a routerLink="/login/cadastro">clique aqui</a>
+            </div>
+            
+          </form>
+        </div>
+        <div class="card-text">
+          <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -7,23 +7,19 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 
 import { JwtModule } from '@auth0/angular-jwt';
-import { LoginComponent } from './componentes/login/login.component';
-import { FormsModule } from '@angular/forms';
-import { CadastroComponent } from './componentes/cadastro/cadastro.component';
 
 //tirar quando for conectar com api
 //import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 //import { InMemoryDatabase } from "../in-memory-database";
 
 @NgModule({
-  declarations: [NavbarComponent, LoginComponent, CadastroComponent],
+  declarations: [NavbarComponent],
   imports: [
     RouterModule,
     CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => { 
