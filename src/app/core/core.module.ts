@@ -12,6 +12,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 //import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 //import { InMemoryDatabase } from "../in-memory-database";
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [NavbarComponent],
   imports: [
@@ -22,9 +26,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => { 
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ["localhost:63594", "thiagooliveira.somee.com"]
       }
     })
