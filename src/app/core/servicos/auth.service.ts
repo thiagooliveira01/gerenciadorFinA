@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class AuthService {
  
   // API path
-  basePath = 'http://localhost:63594/';
+  basePath = 'http://thiagooliveira.somee.com/';
  
   constructor(
     private router: Router,

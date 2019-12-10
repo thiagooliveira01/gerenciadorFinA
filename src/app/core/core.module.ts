@@ -25,7 +25,7 @@ import { JwtModule } from '@auth0/angular-jwt';
         tokenGetter: () => { 
           return localStorage.getItem('access_token');
         },
-        whitelistedDomains: ["localhost:63594"]
+        whitelistedDomains: ["localhost:63594", "thiagooliveira.somee.com"]
       }
     })
     //HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase) //tirar quando for conectar com api

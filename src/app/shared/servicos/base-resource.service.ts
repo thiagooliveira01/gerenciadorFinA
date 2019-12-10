@@ -8,7 +8,7 @@ import { Injector } from '@angular/core';
 export abstract class BaseResouceService<T extends BaseResourceModel>{
 
   protected http: HttpClient;
-  protected urlBase: string = 'http://localhost:63594/';
+  protected urlBase: string = 'http://thiagooliveira.somee.com/';
 
   constructor(
     protected apiPath: string, 
