@@ -15,6 +15,29 @@ import currencyFormatter from "currency-formatter";
 })
 export class ConsultaComponent implements OnInit {
 
+  mesValor = [
+       {id: 1, name: "Janeiro"},
+       {id: 2, name: "Fevereiro"},
+       {id: 3, name: "Março"},
+       {id: 4, name: "Abril"},
+       {id: 5, name: "Maio"},
+       {id: 6, name: "Junho"},
+       {id: 7, name: "Julho"},
+       {id: 8, name: "Agosto"},
+       {id: 9, name: "Setembro"},
+       {id: 10, name: "Outubro"},
+       {id: 11, name: "Novembro"},
+       {id: 12, name: "Dezembro"} ];
+
+  anoValor = [
+       {id: 2020, name: "2020"},
+       {id: 2019, name: "2019"},
+       {id: 2018, name: "2018"},
+       {id: 2017, name: "2017"} ];
+
+  mesSelecionado = 12;
+  anoSelecionado = 2019;
+
   totalReceita: any = 0;
   totalDespesa: any = 0;
   saldo: any = 0;
@@ -38,19 +61,16 @@ export class ConsultaComponent implements OnInit {
   corReceita: ['#00FA9A','#00FFFF', '#006400', '#00FF00', '#B0E0E6', '#F0FFF0', '#E6E6FA','#4B0082','#7B68EE','#8B008B','#008080'];
   corDespesa: ['#FF0000','#DC143C', '#800000', '#D2691E', '#F08080', '#DAA520', '#8B4513','#F4A460','#FFA500','#FFFF00','#FF69B4'];
 
-  @ViewChild('mes', {static: false}) mes: ElementRef = null;
-  @ViewChild('ano', {static: false}) ano: ElementRef = null;
-
   constructor(private lancamentoService: LancamentoService, private categoriaService: CategoriaService) { }
 
   ngOnInit() {
     this.categoriaService.getall()
-    .subscribe(categorias => this.categorias = categorias)
+    .subscribe(categorias => this.categorias = categorias);
   }
 
   consultar(){
-    const mes = this.mes.nativeElement.value;
-    const ano = this.ano.nativeElement.value;
+    const mes = this.mesSelecionado;
+    const ano = this.anoSelecionado
 
     if(!mes || !ano)
       alert('Selecione o Mês e o Ano para gerar os relatórios')

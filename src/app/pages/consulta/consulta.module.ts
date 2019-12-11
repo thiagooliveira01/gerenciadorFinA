@@ -6,13 +6,16 @@ import { ConsultaComponent } from './consulta/consulta.component';
 
 import { ChartModule } from "primeng/chart";
 
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [ConsultaComponent],
   imports: [
     ConsultaRoutingModule,
     SharedModule,
-    ChartModule
+    ChartModule,
+    FormsModule
   ]
 })
 export class ConsultaModule { }
