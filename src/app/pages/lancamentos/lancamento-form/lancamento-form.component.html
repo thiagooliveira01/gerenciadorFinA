@@ -52,40 +52,40 @@
                 <!--data-->
                 <div class="formgroup col-md-2">
                     <label for="nome">Data</label>
-                    <p-calendar
-                      id="data"
-                      formControlName="data"
-                      inputStyleClass="form-control"
-                      dataType="string"
-                      dateFormat="dd/mm/yy"
-                      [locale]="ptBR"
-                      [showButtonBar]="true">
-                      
-                    </p-calendar>
-
+                    <div class="input-group">
+                        <p-calendar
+                        id="data"
+                        formControlName="data"
+                        inputStyleClass="form-control"
+                        dataType="string"
+                        dateFormat="dd/mm/yy"
+                        [locale]="ptBR"
+                        [showButtonBar]="true">
+                        </p-calendar>
+                    </div>
                     <app-form-field-error [form-control]="resourceForm.get('data')"></app-form-field-error>
-
                 </div>
-    
             </div>
 
             <div class="form-row">
                 <!--pago-->
                 <div class="formgroup col-md-2">
                     <label for="pago">Pago</label>
-                    <div class="btn-group">
-                        <label 
-                          [class.active]="resourceForm.get('pago').value == 1" 
-                          class="btn btn-outline-info"
-                          (click)="resourceForm.get('pago').setValue(1)">
-                          Pago
-                        </label>
-                        <label 
-                          [class.active]="resourceForm.get('pago').value == 0" 
-                          class="btn btn-outline-info"
-                          (click)="resourceForm.get('pago').setValue(0)">
-                        Pendente
-                        </label>
+                    <div class="input-group">
+                        <div class="btn-group">
+                            <label 
+                            [class.active]="resourceForm.get('pago').value == 1" 
+                            class="btn btn-outline-info"
+                            (click)="resourceForm.get('pago').setValue(1)">
+                            Pago
+                            </label>
+                            <label 
+                            [class.active]="resourceForm.get('pago').value == 0" 
+                            class="btn btn-outline-info"
+                            (click)="resourceForm.get('pago').setValue(0)">
+                            Pendente
+                            </label>
+                        </div>
                     </div>
                     
                     <app-form-field-error [form-control]="resourceForm.get('pago')"></app-form-field-error>
