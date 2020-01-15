@@ -30,13 +30,13 @@ export class ConsultaComponent implements OnInit {
        {id: 12, name: "Dezembro"} ];
 
   anoValor = [
+       {id: 2020, name: "2021"},
        {id: 2020, name: "2020"},
        {id: 2019, name: "2019"},
-       {id: 2018, name: "2018"},
-       {id: 2017, name: "2017"} ];
+       {id: 2018, name: "2018"} ];
 
-  mesSelecionado = 12;
-  anoSelecionado = 2019;
+  mesSelecionado = 1;
+  anoSelecionado = 2020;
 
   totalReceita: any = 0;
   totalDespesa: any = 0;
